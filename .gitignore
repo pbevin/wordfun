@@ -1,0 +1,6 @@
+/target
+/tmp
+/dist
+/node_modules
+/.parcel-cache
+/.env*

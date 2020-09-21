@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Crossword Solver</title>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta
+      name="description"
+      content="Crossword tools for smart people. Anagram solver, missing letter finder, thesaurus.  Great for cryptics"
+    />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-693624-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-693624-6");
+    </script>
+  </head>
+  <body>
+    <div id="app" class="uninit">
+      <div id="intro">
+        <h1>Crossword Solver</h1>
+        <p>
+          I enjoy crosswords, and wrote these tools to help me. There are well over a quarter of a
+          million words and phrases in the dictionary, thanks to
+          <a href="http://www.crosswordman.com/">Ross Beresford</a>'s UKACD dictionary and a huge
+          list of phrases from Ross Withey.
+        </p>
+
+        <div class="info callout">
+          <h2>
+            <img src="./icons/info.svg" class="info-icon" />
+            Come here often?
+          </h2>
+          <p>
+            If you're a regular user of this site, you'll probably notice some changes over the next
+            few weeks. Please let me know if anything stops working for you, or if you prefer
+            anything the way it was. &mdash;<a href="mailto:pete@petebevin.com">Pete</a>.
+          </p>
+          <p>
+            Update 2: I really appreciate all the feedback, ideas, and problem reports! My top
+            priority is fixing the site for people who can't use it. If search doesn't work for you
+            at all, please let me know, and it will help me fix it faster if you also tell me what
+            browser and device you're using (e.g., "Safari on Mac" or "Chrome on an Android phone").
+            Also, I've made
+            <a href="https://old.wordfun.ca/">the old version of the site</a> available while I sort
+            this out.
+          </p>
+
+          <ul class="todo">
+            <li><s>Search doesn't work at all for some people</s></li>
+            <li><s>Anagram preview should show letters as typed, not sorted.</s></li>
+            <li>
+              Respect word boundaries better:
+              <ul>
+                <li>
+                  <s>
+                    <kbd>s.e./.....</kbd> should match <kbd>see reason</kbd> but not
+                    <kbd>see no evil</kbd>
+                  </s>
+                </li>
+                <li>
+                  <s><kbd>s.e......</kbd>should match both, and also <kbd>scenarios</kbd></s>
+                </li>
+                <li>Don't count apostrophes as word breaks</li>
+              </ul>
+            </li>
+            <li>
+              Thesarus is overly pedantic about spaces (at the start, at the end, or in the middle!)
+            </li>
+            <li><s>Find anagrams with unknown letters</s></li>
+            <li>Bring back the cryptogram solver!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <address>
+        <a href="http://www.petebevin.com/">Pete Bevin</a>,
+        <a href="mailto:pete@petebevin.com">pete@petebevin.com</a>.
+      </address>
+    </footer>
+    <script src="./index.js" type="text/javascript"></script>
+  </body>
+</html>

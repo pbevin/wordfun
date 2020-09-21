@@ -1,0 +1,11 @@
+version: '3'
+services:
+    web:
+        restart: always
+        build:
+          context: .
+          args:
+            - COMMIT_ID
+        image: pbevin/wordfun:latest
+        ports:
+            - "3000:3000"

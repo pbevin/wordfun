@@ -1,0 +1,11 @@
+{
+  "/preview": {
+    "target": "http://localhost:3000"
+  },
+  "/words": {
+    "target": "http://localhost:3000"
+  },
+  "/version.txt": {
+    "target": "http://localhost:3000"
+  }
+}

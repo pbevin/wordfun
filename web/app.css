@@ -1,0 +1,182 @@
+@import "./reset.css";
+
+:root {
+  --hot-color: #e00;
+  --light-blue: #c8e7ff;
+  --text-color: #333;
+  --highlight: #d9edfd;
+}
+
+body {
+  background: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 8px;
+}
+
+p {
+  margin: 1em 0;
+  line-height: 1.3em;
+}
+
+.callout {
+  margin: 1em 40px;
+  padding: 20px;
+  background: var(--light-blue);
+  width: 66%;
+}
+
+.info li {
+  line-height: 1.4em;
+  margin-top: 0.2em;
+}
+
+.info h2 {
+  color: var(--text-color);
+  margin-top: 0;
+}
+
+.info-icon {
+  width: 20px;
+  vertical-align: text-bottom;
+}
+
+.info ul {
+  margin-left: 2em;
+}
+
+.info kbd {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  background: #eee;
+}
+
+.callout kbd {
+  background: #aad5f7;
+}
+
+.tool {
+  margin-top: 1em;
+}
+
+h1 {
+  margin: 0 0 0.67em;
+  font: 30px Arial, Helvetica, sans-serif;
+}
+h1 em {
+  color: blue;
+}
+h2 {
+  margin: 0.83em 0;
+  font: 18px Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: var(--hot-color);
+}
+form {
+  margin-bottom: 1em;
+}
+kbd,
+samp {
+  font: normal 14px "Lucida Console", Monaco, monospace;
+}
+.results {
+  font: normal 12px Arial, Helvetica, sans-serif;
+}
+.results .entry dfn {
+  margin-left: 12px;
+}
+.results .entry {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.results .entry.good {
+  background: var(--highlight);
+}
+
+.results .entry a {
+  font: normal 14px "Lucida Console", Monaco, monospace;
+}
+
+.preview {
+  color: var(--hot-color);
+}
+
+#thesaurus_preview {
+  color: black;
+}
+.hidden {
+  display: none;
+}
+.results a {
+  text-decoration: none;
+}
+
+.explain {
+  font-size: 11px;
+  margin-left: 12px;
+  color: #999;
+}
+
+section {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #999;
+  margin-bottom: 20px;
+}
+
+.results .entry {
+  position: relative;
+}
+
+.overlay {
+  background-color: #000000aa;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.modal {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  position: fixed;
+  top: 16px;
+  right: 16px;
+}
+
+.dictionary-iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.iframe-loading {
+  opacity: 0;
+}
+
+#app.uninit {
+  display: block;
+  /* Rough estimate: the JS turns off the explicit height
+   * once it's initialized the app.
+   */
+  height: 1200px;
+}
+
+footer: {
+  margin-top: 900px;
+}
+
+@media screen and (max-width: 639px) {
+  .results .entry a {
+    font: inherit;
+  }
+}
+
+/* vim:sw=2 et
+ */

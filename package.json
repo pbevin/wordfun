@@ -1,0 +1,38 @@
+{
+  "name": "wordfun",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "source": "index.html",
+  "app": "dist/index.html",
+  "scripts": {
+    "lint": "eslint web",
+    "start": "parcel serve ./web/index.html",
+    "build": "parcel build ./web/index.html",
+    "update": "npx browserslist@latest --update-db"
+  },
+  "browserslist": [
+    "> 0.1%",
+    "not dead",
+    "not op_mini all"
+  ],
+  "dependencies": {
+    "@sentry/browser": "^5.22.3",
+    "@sentry/react": "^5.24.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-modal": "^3.11.2",
+    "whatwg-fetch": "^3.4.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "autoprefixer": "^9.8.6",
+    "cssnano": "^4.1.10",
+    "eslint": "^7.9.0",
+    "eslint-plugin-react": "^7.20.6",
+    "parcel": "next",
+    "postcss-custom-properties": "^9.1.1",
+    "postcss-modules": "^3.2.2",
+    "prettier": "2.1.1"
+  }
+}
