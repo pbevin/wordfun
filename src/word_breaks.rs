@@ -1,7 +1,7 @@
 use deunicode::deunicode;
 use fixedbitset::FixedBitSet;
 
-#[derive(Debug, PartialEq, Clone)]
+#[derive(PartialEq, Clone)]
 pub struct WordBreaks(FixedBitSet);
 
 impl WordBreaks {
@@ -56,6 +56,12 @@ impl WordBreaks {
 impl Default for WordBreaks {
     fn default() -> Self {
         Self(FixedBitSet::with_capacity(Self::SIZE))
+    }
+}
+
+impl std::fmt::Debug for WordBreaks {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "WordBreaks({:?})", &self.to_vec())
     }
 }
 

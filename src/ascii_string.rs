@@ -1,6 +1,6 @@
 use std::convert::TryFrom;
 
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Default, Clone)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Hash, Default, Clone)]
 pub struct AsciiString(Vec<u8>);
 
 impl AsciiString {
@@ -15,6 +15,12 @@ impl AsciiString {
     pub fn to_str(&self) -> &str {
         // OK to unwrap this because the bytes are all ASCII.
         std::str::from_utf8(&self.0).unwrap()
+    }
+}
+
+impl std::fmt::Debug for AsciiString {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "AsciiString({:?})", self.to_str())
     }
 }
 

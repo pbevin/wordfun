@@ -19,6 +19,8 @@ pub fn parse_word(word: &str) -> (AsciiString, WordBreaks) {
         if b.is_ascii_alphabetic() {
             letters.push(b.to_ascii_lowercase());
             len += 1;
+        } else if b == b'\'' {
+            // Apostrophe doesn't count as a word break, but we do ignore it.
         } else if b.is_ascii_punctuation() || b.is_ascii_whitespace() {
             positions.push(len);
         }
@@ -77,6 +79,14 @@ mod test {
                 ascii_string("teteatete"),
                 WordBreaks::from_positions(&[4, 5])
             )
+        );
+    }
+
+    #[test]
+    pub fn parse_apostrophe() {
+        assert_eq!(
+            parse_word("bee's knees"),
+            (ascii_string("beesknees"), WordBreaks::from_positions(&[4]))
         );
     }
 }
