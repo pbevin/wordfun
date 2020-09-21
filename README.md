@@ -8,7 +8,7 @@ The simplest way to build and run this is with Docker:
 
 ```bash
 docker build -t wordfun .
-docker run -it -p3000:3000  w
+docker run -it -p3000:3000 wordfun
 ```
 
 Then open a browser at http://localhost:3000/
@@ -42,6 +42,9 @@ If you have problems with any of the above, please open a GitHub issue.
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+- Please format your code with `cargo fmt` and `prettier`.
+- Please make sure tests run with `cargo test`.
 
 ## License
 
