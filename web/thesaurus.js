@@ -14,7 +14,7 @@ function Thesaurus() {
       <h2>
         <label htmlFor="th">Thesaurus</label>
       </h2>
-      <div className="info">
+      <div className="help info">
         <p>Enter a word to get synonyms. For example,</p>
         <ul>
           <li>
@@ -25,16 +25,18 @@ function Thesaurus() {
         </ul>
       </div>
 
-      <form className="tool" onSubmit={handleSubmit}>
-        <input
-          autoCapitalize="off"
-          autoCorrect="off"
-          type="text"
-          id="th"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button>Search Thesaurus</button>
+      <form onSubmit={handleSubmit}>
+        <div className="tool">
+          <input
+            autoCapitalize="off"
+            autoCorrect="off"
+            type="text"
+            id="th"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <button>Thesaurus</button>
+        </div>
         <ThesaurusPreview query={query} onSearch={setQuery} />
       </form>
     </section>
@@ -66,11 +68,11 @@ function ThesaurusPreview(props) {
   if (!result) {
     return null;
   } else if (result.words.length === 0) {
-    return <div className="preview">{query}: No matches.</div>;
+    return <div className="thesaurus-preview">{query}: No matches.</div>;
   }
 
   return (
-    <ul>
+    <ul className="thesaurus-preview">
       <li>
         {query}: {result.count}
       </li>

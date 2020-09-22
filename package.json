@@ -33,6 +33,7 @@
     "parcel": "next",
     "postcss-custom-properties": "^9.1.1",
     "postcss-modules": "^3.2.2",
+    "postcss-nested": "^4.2.3",
     "prettier": "2.1.1"
   }
 }

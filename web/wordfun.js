@@ -97,7 +97,7 @@ function Anagram(props) {
       <h2>
         <label htmlFor="an">Find an Anagram</label>
       </h2>
-      <div className="info">
+      <div className="help info">
         <p>
           Type in a word or series of words here to get valid words and phrases from the dictionary.
           For example,
@@ -121,17 +121,19 @@ function Anagram(props) {
         </ul>
       </div>
 
-      <form className="tool" onSubmit={handleSubmit}>
-        <input
-          id="an"
-          autoCapitalize="off"
-          autoCorrect="off"
-          autoFocus={true}
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button>Anagram</button>
+      <form onSubmit={handleSubmit}>
+        <div className="tool">
+          <input
+            id="an"
+            autoCapitalize="off"
+            autoCorrect="off"
+            autoFocus={true}
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <button>Anagram</button>
+        </div>
         <Preview query={query} type="an" />
       </form>
     </section>
@@ -154,21 +156,25 @@ function FindWord(props) {
       <h2>
         <label htmlFor="fw">Complete a Word or Phrase</label>
       </h2>
-      <p>
-        Type in what you have, with dots for the missing letters (e.g., <kbd>h.r...i.m</kbd>) to get
-        matching words and phrases from the dictionary. You can match word boundaries with forward
-        slashes, like this: <kbd>h.r./...l../e.g</kbd>
-      </p>
-      <form className="tool" onSubmit={handleSubmit}>
-        <input
-          autoCapitalize="off"
-          autoCorrect="off"
-          name="fw"
-          id="fw"
-          type="text"
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button>Find Word/Phrase</button>
+      <div className="help info">
+        <p>
+          Type in what you have, with dots for the missing letters (e.g., <kbd>h.r...i.m</kbd>) to
+          get matching words and phrases from the dictionary. You can match word boundaries with
+          forward slashes, like this: <kbd>h.r./...l../e.g</kbd>
+        </p>
+      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="tool">
+          <input
+            autoCapitalize="off"
+            autoCorrect="off"
+            name="fw"
+            id="fw"
+            type="text"
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <button>Find Word</button>
+        </div>
         <Preview query={query} type="fw" />
       </form>
     </section>
@@ -272,12 +278,12 @@ function Entry({ word, score, definition, onClick }) {
   }
 
   return (
-    <div className={classes}>
-      <a href={dictUrl} target="wf_lookup" onClick={handleClick}>
+    <>
+      <a className="word" href={dictUrl} target="wf_lookup" onClick={handleClick}>
         {word}
       </a>
-      <dfn>{definition}</dfn>
-    </div>
+      <dfn className="dfn">{definition}</dfn>
+    </>
   );
 }
 

@@ -11,18 +11,23 @@ body {
   background: #fff;
   font-family: Arial, Helvetica, sans-serif;
   margin: 8px;
+  line-height: 1.3em;
 }
 
 p {
   margin: 1em 0;
-  line-height: 1.3em;
 }
 
 .callout {
   margin: 1em 40px;
   padding: 20px;
   background: var(--light-blue);
-  width: 66%;
+}
+
+.help {
+  border-left: 10px solid var(--light-blue);
+  padding-left: 20px;
+  margin: 0 40px;
 }
 
 .info li {
@@ -67,63 +72,85 @@ h1 em {
 }
 h2 {
   margin: 0.83em 0;
-  font: 18px Arial, Helvetica, sans-serif;
+  font: 22px Arial, Helvetica, sans-serif;
   font-weight: bold;
   color: var(--hot-color);
 }
-form {
+
+.tool {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
   margin-bottom: 1em;
-}
-kbd,
-samp {
-  font: normal 14px "Lucida Console", Monaco, monospace;
-}
-.results {
-  font: normal 12px Arial, Helvetica, sans-serif;
-}
-.results .entry dfn {
-  margin-left: 12px;
-}
-.results .entry {
-  overflow: hidden;
-  white-space: nowrap;
-}
-.results .entry.good {
-  background: var(--highlight);
+
+  input,
+  button {
+    height: 40px;
+    padding: 2px 6px;
+    font-size: 1em;
+    flex: none;
+  }
+
+  input {
+    font: normal 20px "Lucida Console", Monaco, monospace;
+    flex: 1;
+  }
 }
 
-.results .entry a {
+kbd,
+samp {
   font: normal 14px "Lucida Console", Monaco, monospace;
 }
 
 .preview {
   color: var(--hot-color);
+  margin-top: 6px;
+  font-size: 20px;
 }
 
 #thesaurus_preview {
   color: black;
 }
+
 .hidden {
   display: none;
 }
-.results a {
-  text-decoration: none;
+
+.results {
+  font-size: 18px;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-column-gap: 1rem;
+  grid-row-gap: 0.2rem;
+
+  .dfn {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .entry.good {
+    background: var(--highlight);
+  }
+
+  .word {
+    text-decoration: none;
+    font-family: "Lucida Console", Monaco, monospace;
+  }
 }
 
-.explain {
-  font-size: 11px;
-  margin-left: 12px;
-  color: #999;
+.thesaurus-preview {
+  font-size: 18px;
+
+  li {
+    margin-bottom: 0.5em;
+    line-height: 1.3em;
+  }
 }
 
 section {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #999;
-  margin-bottom: 20px;
-}
-
-.results .entry {
-  position: relative;
+  margin-bottom: 40px;
+  width: 100%;
+  max-width: 1000px;
 }
 
 .overlay {
@@ -170,12 +197,6 @@ section {
 
 footer: {
   margin-top: 900px;
-}
-
-@media screen and (max-width: 639px) {
-  .results .entry a {
-    font: inherit;
-  }
 }
 
 /* vim:sw=2 et
