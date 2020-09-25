@@ -2,9 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Modal from "react-modal";
 
-// workaround for "regeneratorRuntime not defined":
-import "regenerator-runtime/runtime";
-
 import Thesaurus from "./thesaurus";
 import isBlank from "./isblank";
 import checkVersion from "./check-version";
