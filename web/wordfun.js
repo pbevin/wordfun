@@ -36,6 +36,14 @@ Wordfun.propTypes = {
   intro: PropTypes.string.isRequired,
 };
 
+async function fetchQuery(path, query, inflight, setResult) {
+  let response = await fetch(`${path}?q=${encodeURIComponent(query)}`);
+  let results = await response.json();
+  if (inflight.current.q === query) {
+    setResult(results);
+  }
+}
+
 function IntroOrResults(props) {
   const query = props.query;
   const [result, setResult] = useState();
@@ -46,13 +54,7 @@ function IntroOrResults(props) {
     if (!query) {
       setResult(null);
     } else {
-      fetch(`/words/${query.type}?q=${query.q}`)
-        .then((response) => response.json())
-        .then((results) => {
-          if (inflight.current === query) {
-            setResult(results);
-          }
-        });
+      fetchQuery(`/words/${query.type}`, query.q, inflight, setResult);
     }
   }, [query]);
 
@@ -83,10 +85,16 @@ IntroOrResults.propTypes = {
 
 function Anagram(props) {
   const [query, setQuery] = useState("");
+  const input = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     props.onSubmit(query);
+  };
+
+  const clearInput = () => {
+    setQuery("");
+    input.current.focus();
   };
 
   return (
@@ -124,12 +132,17 @@ function Anagram(props) {
             id="an"
             autoCapitalize="off"
             autoCorrect="off"
+            autoComplete="off"
             autoFocus={true}
+            ref={input}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button>Anagram</button>
+          <button type="submit">Anagram</button>
+          <button type="button" onClick={clearInput} className="btn-clear">
+            Clear
+          </button>
         </div>
         <Preview query={query} type="an" />
       </form>
@@ -142,10 +155,16 @@ Anagram.propTypes = {
 
 function FindWord(props) {
   const [query, setQuery] = useState("");
+  const input = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     props.onSubmit(query);
+  };
+
+  const clearInput = () => {
+    setQuery("");
+    input.current.focus();
   };
 
   return (
@@ -165,12 +184,18 @@ function FindWord(props) {
           <input
             autoCapitalize="off"
             autoCorrect="off"
+            autoComplete="off"
+            ref={input}
             name="fw"
             id="fw"
             type="text"
+            value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
           <button>Find Word</button>
+          <button type="button" onClick={clearInput} className="btn-clear">
+            Clear
+          </button>
         </div>
         <Preview query={query} type="fw" />
       </form>

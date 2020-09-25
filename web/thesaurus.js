@@ -5,8 +5,15 @@ import isBlank from "./isblank";
 
 function Thesaurus() {
   const [query, setQuery] = useState("");
+  const input = useRef();
+
   const handleSubmit = (e) => {
     e.preventDefault();
+  };
+
+  const clearInput = () => {
+    setQuery("");
+    input.current.focus();
   };
 
   return (
@@ -30,12 +37,17 @@ function Thesaurus() {
           <input
             autoCapitalize="off"
             autoCorrect="off"
+            autoComplete="off"
+            ref={input}
             type="text"
             id="th"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
           <button>Thesaurus</button>
+          <button type="button" onClick={clearInput} className="btn-clear">
+            Clear
+          </button>
         </div>
         <ThesaurusPreview query={query} onSearch={setQuery} />
       </form>

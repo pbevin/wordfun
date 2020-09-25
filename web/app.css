@@ -92,8 +92,15 @@ h2 {
   }
 
   input {
-    font: normal 20px "Lucida Console", Monaco, monospace;
+    font: normal 20px Arial, Helvetica, sans-serif;
     flex: 1;
+  }
+
+  .btn-clear {
+    background: none;
+    border: none;
+    color: #00e;
+    margin-left: 20px;
   }
 }
 
