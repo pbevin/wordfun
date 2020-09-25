@@ -15,7 +15,7 @@ function Wordfun(props) {
     async function check() {
       const result = await checkVersion();
       if (result.mismatched) {
-        await fetch(`/version.txt?ui=${UI_VERSION}&server=${text}`);
+        await fetch(`/version.txt?ui=${process.env.COMMIT_ID}&server=${text}`);
         console.warn("Running a different version from the server");
       }
     }
@@ -139,7 +139,9 @@ function Anagram(props) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button type="submit" className="btn">Anagram</button>
+          <button type="submit" className="btn">
+            Anagram
+          </button>
           <button type="button" onClick={clearInput} className="btn-clear">
             Clear
           </button>
@@ -192,7 +194,9 @@ function FindWord(props) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button type="submit" className="btn">Find Word</button>
+          <button type="submit" className="btn">
+            Find Word
+          </button>
           <button type="button" onClick={clearInput} className="btn-clear">
             Clear
           </button>
