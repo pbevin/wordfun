@@ -7,10 +7,6 @@ function Thesaurus() {
   const [query, setQuery] = useState("");
   const input = useRef();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-
   const clearInput = () => {
     setQuery("");
     input.current.focus();
@@ -32,7 +28,7 @@ function Thesaurus() {
         </ul>
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className="tool">
           <input
             autoCapitalize="off"
@@ -44,7 +40,9 @@ function Thesaurus() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button>Thesaurus</button>
+          <button type="button" className="btn">
+            Thesaurus
+          </button>
           <button type="button" onClick={clearInput} className="btn-clear">
             Clear
           </button>

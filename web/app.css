@@ -94,6 +94,14 @@ h2 {
   input {
     font: normal 20px Arial, Helvetica, sans-serif;
     flex: 1;
+    border: 1px solid #a4a4a4;
+    margin-right: 0;
+  }
+
+  .btn {
+    margin: 0;
+    background: #efefef;
+    border: 1px solid #a4a4a4;
   }
 
   .btn-clear {

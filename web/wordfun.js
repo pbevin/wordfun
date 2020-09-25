@@ -139,7 +139,7 @@ function Anagram(props) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button type="submit">Anagram</button>
+          <button type="submit" className="btn">Anagram</button>
           <button type="button" onClick={clearInput} className="btn-clear">
             Clear
           </button>
@@ -192,7 +192,7 @@ function FindWord(props) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button>Find Word</button>
+          <button type="submit" className="btn">Find Word</button>
           <button type="button" onClick={clearInput} className="btn-clear">
             Clear
           </button>
