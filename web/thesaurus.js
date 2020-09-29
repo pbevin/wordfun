@@ -21,8 +21,8 @@ function Thesaurus() {
         <p>Enter a word to get synonyms. For example,</p>
         <ul>
           <li>
-            "17. May be tuna sandwiches always hot (8)" (Financial Times 16,569) suggests "fish" (a
-            synonym of "tuna") enveloping "ever" (a synonym of "always"), giving{" "}
+            “17. May be tuna sandwiches always hot (8)” (Financial Times 16,569) suggests “fish” (a
+            synonym of “tuna”) enveloping “ever” (a synonym of “always”), giving{" "}
             <samp>FEVERISH</samp>.
           </li>
         </ul>

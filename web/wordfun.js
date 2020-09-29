@@ -109,17 +109,17 @@ function Anagram(props) {
         </p>
         <ul>
           <li>
-            "Pioneering tsar’s exotic voyages (14)" (Guardian 28,233): searching for "pioneering
-            tsar" gives the answer <samp>PEREGRINATIONS</samp>
+            “Pioneering tsar’s exotic voyages (14)” (Guardian 28,233): searching for “pioneering
+            tsar” gives the answer <samp>PEREGRINATIONS</samp>
           </li>
           <li>
-            From the same puzzle, "State capital one missed when touring (3,6)" suggests searching
-            for "one missed", which again gives the right answer <samp>DES MOINES</samp>.
+            From the same puzzle, “State capital one missed when touring (3,6)” suggests searching
+            for “one missed”, which again gives the right answer <samp>DES MOINES</samp>.
           </li>
           <li>
-            You can find partial anagrams, too: just pad out the search with dots. For example, "Set
-            up an unusual lab aboard vessel in Devonport, perhaps (5,4)" (Guardian Quiptic 1,087)
-            has "lab", and you might guess that "vessel" is "vase". That just needs two more
+            You can find partial anagrams, too: just pad out the search with dots. For example, “Set
+            up an unusual lab aboard vessel in Devonport, perhaps (5,4)” (Guardian Quiptic 1,087)
+            has “lab”, and you might guess that “vessel” is “vase”. That just needs two more
             letters, and searching for <kbd>labvase..</kbd> yields 5 results, one of which is the
             correct answer, <samp>NAVAL BASE</samp>.
           </li>
