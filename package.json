@@ -6,9 +6,9 @@
   "source": "index.html",
   "app": "dist/index.html",
   "scripts": {
-    "lint": "eslint web",
+    "eslint": "eslint web",
     "start": "parcel serve ./web/index.html",
-    "build": "parcel build ./web/index.html",
+    "build": "eslint web && parcel build ./web/index.html",
     "update": "npx browserslist@latest --update-db"
   },
   "browserslist": [
