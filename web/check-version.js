@@ -1,3 +1,5 @@
+import * as Sentry from "@sentry/browser";
+
 // For production, the build process supplies COMMIT_ID; in development, it's
 // likely to be null unless you've set it explicitly.  Either way, the bundler
 // substitutes a static value.
@@ -56,7 +58,7 @@ export default async function checkVersion() {
     }
     return response;
   } catch (e) {
-    Sentry.captureException(err);
+    Sentry.captureException(e);
     return {
       server_error: e,
       current: false,

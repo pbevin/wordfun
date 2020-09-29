@@ -15,7 +15,7 @@ function Wordfun(props) {
     async function check() {
       const result = await checkVersion();
       if (result.mismatched) {
-        await fetch(`/version.txt?ui=${process.env.COMMIT_ID}&server=${text}`);
+        await fetch(`/version.txt?ui=${process.env.COMMIT_ID}&server=${result.serverVersion}`);
         console.warn("Running a different version from the server");
       }
     }
