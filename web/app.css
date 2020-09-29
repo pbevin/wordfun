@@ -133,23 +133,31 @@ samp {
 
 .results {
   font-size: 18px;
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  grid-column-gap: 1rem;
-  grid-row-gap: 0.2rem;
+  display: table;
+  /* grid-template-columns: max-content 1fr; */
+  /* grid-column-gap: 1rem; */
+  /* grid-row-gap: 0.2rem; */
+
+  .entry {
+    display: table-row;
+  }
 
   .dfn {
+    display: table-cell;
+    padding-left: 1em;
     overflow: hidden;
     white-space: nowrap;
   }
 
   .entry.good {
     background: var(--highlight);
+    flex: 0 1 auto;
   }
 
   .word {
     text-decoration: none;
     font-family: "Lucida Console", Monaco, monospace;
+    display: table-cell;
   }
 }
 

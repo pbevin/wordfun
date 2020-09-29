@@ -304,12 +304,12 @@ function Entry({ word, score, definition, onClick }) {
   }
 
   return (
-    <>
+    <entry className={classes}>
       <a className="word" href={dictUrl} target="wf_lookup" onClick={handleClick}>
         {word}
       </a>
       <dfn className="dfn">{definition}</dfn>
-    </>
+    </entry>
   );
 }
 
