@@ -27,6 +27,7 @@ COPY package-lock.json .
 RUN npm install
 COPY .parcelrc .
 COPY .postcssrc .
+COPY .eslintrc.js .
 ARG COMMIT_ID
 COPY web web
 RUN npm run build
