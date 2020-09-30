@@ -155,6 +155,7 @@ samp {
   }
 
   .word {
+    white-space: nowrap;
     text-decoration: none;
     font-family: "Lucida Console", Monaco, monospace;
     display: table-cell;
