@@ -155,7 +155,9 @@ async fn main() -> Result<()> {
     server = if let Some(l) = listenfd.take_tcp_listener(0).unwrap() {
         server.listen(l)?
     } else {
-        server.bind("0.0.0.0:3000")?
+        let port = std::env::var("WORDFUN_API_PORT").unwrap_or_else(|_| "3000".to_string());
+        let addr = format!("0.0.0.0:{}", &port);
+        server.bind(&addr)?
     };
 
     Ok(server.run().await?)
