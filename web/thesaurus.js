@@ -28,7 +28,7 @@ function Thesaurus() {
         </ul>
       </div>
 
-      <form>
+      <form onSubmit={(e) => e.preventDefault()}>
         <div className="tool">
           <input
             autoCapitalize="off"
