@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Wordfun API Mode</title>
+  </head>
+
+  <body>
+    <h1>Wordfun API Mode</h1>
+    <p>This server is only serving API requests.</p>
+    <ul>
+      <li>
+        In development, the API server normally runs on port 4000, with the React front-end on port
+        3000. You can run the React front-end with "yarn start".
+      </li>
+      <li>
+        In production, the server is run with <kbd>--assets-dir=&lt;path&gt;</kbd>, where
+        &lt;path&gt; points to the build directory produced by "yarn run build".
+      </li>
+    </ul>
+
+    <p>
+      To try out the API, you can use one of the following paths:
+    </p>
+
+    <ul>
+      <li><a href="/preview/an?q=spear">/preview/an?q=spear</a></li>
+      <li><a href="/preview/fw?q=h.r./...l../e.g">/preview/fw?q=h.r./...l../e.g</a></li>
+      <li><a href="/preview/thesaurus?q=dog">/preview/thesaurus?q=dog</a></li>
+      <li><a href="/words/an?q=spear">/words/an?q=spear</a></li>
+      <li><a href="/words/fw?q=a.b.">/words/fw?q=a.b.</a></li>
+    </ul>
+  </body>
+</html>

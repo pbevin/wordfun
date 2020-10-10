@@ -1,9 +1,10 @@
-use anyhow::{anyhow, ensure, Context, Result};
-use std::env;
+use anyhow::{Context, Result};
 use std::fs;
 use std::path::Path;
 use std::path::PathBuf;
 use std::sync::Arc;
+
+use crate::Options;
 use wordfun::{Dictionary, Lexicon, Popularity, Thesaurus};
 
 struct Inner {
@@ -11,7 +12,7 @@ struct Inner {
     thesaurus: Thesaurus,
     dictionary: Dictionary,
     popularity: Popularity,
-    assets_dir: PathBuf,
+    assets_dir: Option<PathBuf>,
 }
 
 #[derive(Clone)]
@@ -25,19 +26,13 @@ fn read_to_string<P: AsRef<Path>>(path: P) -> Result<String> {
 }
 
 impl Reference {
-    pub fn new() -> Result<Self> {
-        let assets_dir = env::var_os("ASSETS_DIR").ok_or_else(|| anyhow!("ASSETS_DIR not set"))?;
-        ensure!(
-            Path::new(&assets_dir).exists(),
-            "ASSETS_DIR is set to {:?}, but that directory does not exist.",
-            assets_dir
-        );
+    pub fn new(options: &Options) -> Result<Self> {
         let lex_text = read_to_string("data/lexicon.txt")?;
         let popular_words = read_to_string("data/popular_words.txt")?;
 
         let lex = Lexicon::new(lex_text.lines());
         let thesaurus = Thesaurus::init();
-        let assets_dir = PathBuf::from(&assets_dir);
+        let assets_dir = options.assets_dir.clone();
         let popularity = Popularity::from(popular_words.lines());
         let dictionary = Dictionary::from_wordnet();
 
@@ -65,8 +60,8 @@ impl Reference {
         &self.inner.thesaurus
     }
 
-    pub fn assets_dir(&self) -> &Path {
-        &self.inner.assets_dir
+    pub fn assets_dir(&self) -> Option<&Path> {
+        self.inner.assets_dir.as_deref()
     }
 
     pub fn popularity(&self) -> &Popularity {
