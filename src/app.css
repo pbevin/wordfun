@@ -1,4 +1,14 @@
-@import "./reset.css";
+@import-normalize;
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
 
 :root {
   --hot-color: #e00;
@@ -14,14 +24,38 @@ body {
   line-height: 1.3em;
 }
 
-p {
-  margin: 1em 0;
+ul {
+  padding: 0 0 0 2em;
+}
+
+h1 {
+  margin: 0 0 0.67em;
+  font: 30px Arial, Helvetica, sans-serif;
+}
+
+h1 em {
+  color: blue;
+}
+h2 {
+  margin: 0.83em 0;
+  font: 22px Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: var(--hot-color);
+}
+
+kbd,
+samp {
+  font: normal 14px 'Lucida Console', Monaco, monospace;
 }
 
 .callout {
   margin: 1em 40px;
   padding: 20px;
   background: var(--light-blue);
+}
+
+.callout kbd {
+  background: #aad5f7;
 }
 
 .help {
@@ -45,86 +79,59 @@ p {
   vertical-align: text-bottom;
 }
 
-.info ul {
-  margin-left: 2em;
-}
-
 .info kbd {
   padding-left: 0.5em;
   padding-right: 0.5em;
   background: #eee;
 }
 
-.callout kbd {
-  background: #aad5f7;
+.info :last-child {
+  margin-bottom: 0;
 }
 
 .tool {
   margin-top: 1em;
 }
 
-h1 {
-  margin: 0 0 0.67em;
-  font: 30px Arial, Helvetica, sans-serif;
-}
-h1 em {
-  color: blue;
-}
-h2 {
-  margin: 0.83em 0;
-  font: 22px Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  color: var(--hot-color);
-}
-
-.tool {
+.tool form {
   display: flex;
   width: 100%;
   max-width: 600px;
   margin-bottom: 1em;
-
-  input,
-  button {
-    height: 40px;
-    padding: 2px 6px;
-    font-size: 1em;
-    flex: none;
-  }
-
-  input {
-    font: normal 20px Arial, Helvetica, sans-serif;
-    flex: 1;
-    border: 1px solid #a4a4a4;
-    margin-right: 0;
-  }
-
-  .btn {
-    margin: 0;
-    background: #efefef;
-    border: 1px solid #a4a4a4;
-  }
-
-  .btn-clear {
-    background: none;
-    border: none;
-    color: #00e;
-    margin-left: 20px;
-  }
 }
 
-kbd,
-samp {
-  font: normal 14px "Lucida Console", Monaco, monospace;
+.tool input,
+.tool button {
+  height: 40px;
+  padding: 2px 6px;
+  font-size: 1em;
+  flex: none;
+}
+
+.tool input {
+  font: normal 20px Arial, Helvetica, sans-serif;
+  flex: 1;
+  border: 1px solid #a4a4a4;
+  margin-right: 0;
+}
+
+.tool .btn {
+  margin: 0;
+  background: #efefef;
+  border: 1px solid #a4a4a4;
+}
+
+.tool .btn-clear {
+  background: none;
+  border: none;
+  color: #00e;
+  margin-left: 20px;
 }
 
 .preview {
   color: var(--hot-color);
   margin-top: 6px;
   font-size: 20px;
-}
-
-#thesaurus_preview {
-  color: black;
 }
 
 .hidden {
@@ -134,41 +141,39 @@ samp {
 .results {
   font-size: 18px;
   display: table;
-  /* grid-template-columns: max-content 1fr; */
-  /* grid-column-gap: 1rem; */
-  /* grid-row-gap: 0.2rem; */
+}
 
-  .entry {
-    display: table-row;
-  }
+.results .entry {
+  display: table-row;
+}
 
-  .dfn {
-    display: table-cell;
-    padding-left: 1em;
-    overflow: hidden;
-    white-space: nowrap;
-  }
+.results .dfn {
+  display: table-cell;
+  font-style: normal;
+  padding-left: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+}
 
-  .entry.good {
-    background: var(--highlight);
-    flex: 0 1 auto;
-  }
+.results .entry.good {
+  background: var(--highlight);
+  flex: 0 1 auto;
+}
 
-  .word {
-    white-space: nowrap;
-    text-decoration: none;
-    font-family: "Lucida Console", Monaco, monospace;
-    display: table-cell;
-  }
+.results .word {
+  text-decoration: none;
+  font-family: 'Lucida Console', Monaco, monospace;
+  display: table-cell;
 }
 
 .thesaurus-preview {
   font-size: 18px;
+  min-height: 600px;
+}
 
-  li {
-    margin-bottom: 0.5em;
-    line-height: 1.3em;
-  }
+.thesaurus-preview li {
+  margin-bottom: 0.5em;
+  line-height: 1.3em;
 }
 
 section {
@@ -217,10 +222,6 @@ section {
    * once it's initialized the app.
    */
   height: 1200px;
-}
-
-footer {
-  margin-top: 900px;
 }
 
 /* vim:sw=2 et

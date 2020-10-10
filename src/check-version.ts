@@ -1,4 +1,11 @@
-import * as Sentry from "@sentry/browser";
+import * as Sentry from '@sentry/browser';
+
+type VersionInfo = {
+  serverVersion: string | null;
+  serverResponse: string | null;
+  uiVersion: string | null;
+  mismatched: boolean;
+};
 
 // For production, the build process supplies COMMIT_ID; in development, it's
 // likely to be null unless you've set it explicitly.  Either way, the bundler
@@ -18,7 +25,7 @@ const VERSION_REGEXP = /^[0-9a-f]{40}$/i;
 //      great! Keep going!
 //   4. The response is a different version number. That presumably means that
 //      the server is running a newer version, and we should update.
-export default async function checkVersion() {
+export default async function checkVersion(): Promise<VersionInfo> {
   if (!UI_VERSION) {
     return {
       serverVersion: null,
@@ -36,12 +43,16 @@ export default async function checkVersion() {
   // the live result. If the version number came from a cache, this test would
   // be useless.
   try {
-    const resp = await fetch(`/version.txt?ui=${UI_VERSION}`, { cache: "no-store" });
+    const resp = await fetch(`/version.txt?ui=${UI_VERSION}`, {
+      cache: 'no-store',
+    });
     const text = await resp.text();
 
-    let response = {
+    let response: VersionInfo = {
+      serverVersion: null,
       serverResponse: text,
       uiVersion: UI_VERSION,
+      mismatched: false,
     };
     if (!text.match(VERSION_REGEXP)) {
       // Case 2: got something other than a version number.
@@ -59,9 +70,6 @@ export default async function checkVersion() {
     return response;
   } catch (e) {
     Sentry.captureException(e);
-    return {
-      server_error: e,
-      current: false,
-    };
+    throw e;
   }
 }

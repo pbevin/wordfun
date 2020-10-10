@@ -7,7 +7,7 @@ use wordfun::{plural, Dictionary, Popularity, Results};
 
 use actix_files::NamedFile;
 use actix_web::{middleware, web, App, HttpRequest, HttpResponse, HttpServer};
-use anyhow::Result;
+use anyhow::{Context, Result};
 use env_logger::Env;
 use itertools::Itertools;
 use listenfd::ListenFd;
@@ -131,7 +131,7 @@ async fn version() -> HttpResponse {
 #[actix_rt::main]
 async fn main() -> Result<()> {
     env_logger::from_env(Env::default().default_filter_or("info")).init();
-    let reference = Reference::new()?;
+    let reference = Reference::new().context("Could not load reference data")?;
 
     let mut listenfd = ListenFd::from_env();
     let mut server = HttpServer::new(move || {
