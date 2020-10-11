@@ -1,4 +1,4 @@
-.git
-tmp
-target
-node_modules
+/.git
+/tmp
+/api/target
+/node_modules

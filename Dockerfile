@@ -7,13 +7,13 @@ WORKDIR /wordfun
 # Precompile our dependencies: this speeds up subsequent builds
 ENV USER=root
 RUN cargo init
-COPY Cargo.toml .
-COPY Cargo.lock .
+COPY api/Cargo.toml .
+COPY api/Cargo.lock .
 RUN cargo build --release
 RUN rm -fr src
 
 # Build for real this time
-COPY src src
+COPY api/src src
 RUN cargo build --release
 
 #
@@ -22,14 +22,12 @@ RUN cargo build --release
 FROM node as jsbuild
 RUN npm i -g parcel
 WORKDIR /wordfun
-COPY package.json .
-COPY package-lock.json .
-RUN npm install
-COPY .parcelrc .
-COPY .postcssrc .
-COPY .eslintrc.js .
-ARG COMMIT_ID
-COPY web web
+COPY /package.json .
+COPY /yarn.lock .
+RUN yarn
+COPY /tsconfig.json .
+COPY /src src
+COPY /public public
 RUN npm run build
 
 #
@@ -41,15 +39,14 @@ RUN npm run build
 FROM debian:buster-slim
 
 WORKDIR /wordfun
-COPY data data
-COPY --from=jsbuild  /wordfun/dist dist
+COPY /api/data data
+COPY --from=jsbuild  /wordfun/build build
 COPY --from=build /wordfun/target/release/wordfun /usr/bin/wordfun
 
 ARG COMMIT_ID
 ENV COMMIT_ID=$COMMIT_ID
-ENV RUST_LOG=warn
-ENV ASSETS_DIR=dist
+ENV RUST_LOG=info
 
 EXPOSE 3000
 
-CMD ["wordfun"]
+CMD ["wordfun", "--server-port", "3000", "--bind", "0.0.0.0", "--assets-dir", "build"]
