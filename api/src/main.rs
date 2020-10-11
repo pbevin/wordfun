@@ -8,7 +8,7 @@ use structopt::StructOpt;
 #[derive(Debug, Clone, StructOpt)]
 pub struct Options {
     /// Port to listen on.
-    #[structopt(short = "p", long = "port", default_value = "4000")]
+    #[structopt(short = "p", long = "server-port", default_value = "4000")]
     pub server_port: u16,
 
     // The default 127.0.0.1 is for development, so you don't expose the port on your
