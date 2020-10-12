@@ -11,17 +11,17 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-      
+
     - name: Cache target directory
       uses: actions/cache@v2
       with:
-        path: target
-        key: ${{ runner.os }}-${{ hashFiles('Cargo.toml', 'Cargo.lock', 'src') }}
+        path: api/target
+        key: ${{ runner.os }}-${{ hashFiles('api/Cargo.toml', 'api/Cargo.lock', 'api/src') }}
 
     - name: Run tests
+      working-directory: api
       run: cargo test --verbose
