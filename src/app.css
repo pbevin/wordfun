@@ -45,7 +45,7 @@ h2 {
 
 kbd,
 samp {
-  font: normal 14px 'Lucida Console', Monaco, monospace;
+  font: normal 14px "Lucida Console", Monaco, monospace;
 }
 
 .callout {
@@ -161,8 +161,9 @@ samp {
 }
 
 .results .word {
+  white-space: nowrap;
   text-decoration: none;
-  font-family: 'Lucida Console', Monaco, monospace;
+  font-family: "Lucida Console", Monaco, monospace;
   display: table-cell;
 }
 
