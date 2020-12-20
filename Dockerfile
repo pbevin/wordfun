@@ -43,8 +43,8 @@ COPY /api/data data
 COPY --from=jsbuild  /wordfun/build build
 COPY --from=build /wordfun/target/release/wordfun /usr/bin/wordfun
 
-ARG COMMIT_ID
-ENV COMMIT_ID=$COMMIT_ID
+ARG SOURCE_COMMIT
+ENV SOURCE_COMMIT=$SOURCE_COMMIT
 ENV RUST_LOG=info
 
 EXPOSE 3000

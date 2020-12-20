@@ -158,9 +158,9 @@ async fn preview_thesaurus(
     })
 }
 
-/// Serve the build ID from the `COMMIT_ID` environment variable.
+/// Serve the build ID from the `SOURCE_COMMIT` environment variable.
 async fn version() -> HttpResponse {
-    let version = std::env::var("COMMIT_ID").unwrap_or_else(|_| "".to_string());
+    let version = std::env::var("SOURCE_COMMIT").unwrap_or_else(|_| "".to_string());
     HttpResponse::Ok().body(version)
 }
 

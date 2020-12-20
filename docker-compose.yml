@@ -5,7 +5,7 @@ services:
         build:
           context: .
           args:
-            - COMMIT_ID
+            - SOURCE_COMMIT
         image: pbevin/wordfun:latest
         ports:
             - "3000:3000"

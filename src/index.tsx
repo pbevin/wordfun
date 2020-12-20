@@ -32,7 +32,7 @@ async function checkServerVersion() {
   const result = await checkVersion();
   if (result.mismatched) {
     await fetch(
-      `/version.txt?ui=${process.env.COMMIT_ID}&server=${result.serverVersion}`,
+      `/version.txt?ui=${process.env.SOURCE_COMMIT}&server=${result.serverVersion}`,
     );
     console.warn('Running a different version from the server');
   }

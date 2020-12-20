@@ -7,10 +7,10 @@ type VersionInfo = {
   mismatched: boolean;
 };
 
-// For production, the build process supplies COMMIT_ID; in development, it's
+// For production, the build process supplies SOURCE_COMMIT; in development, it's
 // likely to be null unless you've set it explicitly.  Either way, the bundler
 // substitutes a static value.
-const UI_VERSION = process.env.COMMIT_ID;
+const UI_VERSION = process.env.SOURCE_COMMIT;
 const VERSION_REGEXP = /^[0-9a-f]{40}$/i;
 
 // Ask the server for its version number. If they don't match, we are probably
