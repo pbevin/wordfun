@@ -1,8 +1,9 @@
 #
 # BUILD SERVER
 #
-FROM rust:1.46 as build
+FROM rust:1.51-alpine as build
 WORKDIR /wordfun
+RUN apk add musl-dev
 
 # Precompile our dependencies: this speeds up subsequent builds
 ENV USER=root
@@ -28,15 +29,13 @@ RUN yarn
 COPY /tsconfig.json .
 COPY /src src
 COPY /public public
+RUN npx browserslist --update-db
 RUN npm run build
 
 #
 # BUILD FINAL IMAGE
 #
-# We use buster-slim. I'd like to use alpine, but something didn't work right with static compilation, and I didn't feel
-# like debugging it.
-#
-FROM debian:buster-slim
+FROM alpine
 
 WORKDIR /wordfun
 COPY /api/data data
