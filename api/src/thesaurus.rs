@@ -3,6 +3,7 @@ use smallvec::SmallVec;
 use std::collections::HashMap;
 use std::collections::HashSet;
 use std::convert::TryFrom;
+use std::fmt::Display;
 
 const THESAURUS_TEXT: &str = include_str!("thesaurus");
 
@@ -80,9 +81,11 @@ impl Word {
             word_lengths: WordLengths::new(&lengths),
         }
     }
+}
 
-    pub fn to_string(&self) -> String {
-        self.term.to_string()
+impl Display for Word {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.pad(self.term)
     }
 }
 
@@ -106,7 +109,7 @@ impl Thesaurus {
 
         for line in lines {
             let mut word_ids = Vec::new();
-            for term in line.split(",") {
+            for term in line.split(',') {
                 let id = if let Some(&id) = term_id_map.get(term) {
                     id
                 } else {
@@ -212,7 +215,7 @@ mod test {
     pub fn lookup_headword_found() {
         let t = example_thesaurus();
         let mut matches = t.lookup("dog").map(|t| t.term).collect::<Vec<_>>();
-        matches.sort();
+        matches.sort_unstable();
         assert_eq!(matches, vec!["dog", "puppy"]);
     }
 
@@ -220,7 +223,7 @@ mod test {
     pub fn lookup_headword_not_found() {
         let t = example_thesaurus();
         let mut matches = t.lookup("kid").map(|t| t.term).collect::<Vec<_>>();
-        matches.sort();
+        matches.sort_unstable();
         assert_eq!(matches, vec!["goat", "human"]);
     }
 

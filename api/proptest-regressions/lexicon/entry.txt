@@ -5,3 +5,4 @@
 # It is recommended to check this file in to source control so that
 # everyone who runs the test benefits from these saved cases.
 cc 84f7a90db228214724d2261d4f8fed9fcfb3a56bb332c8246d0aafa204013679 # shrinks to word = " "
+cc 20190593d34faa460e4739efaf0dc73d28c7eb45214ef9f4df5cf811d3a9a38f # shrinks to word = "!"

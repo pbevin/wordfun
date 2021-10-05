@@ -43,7 +43,7 @@ impl Entry {
     }
 
     /// The number of letters. This is simply the length of `letters()`.
-    pub fn len(&self) -> usize {
+    pub fn word_length(&self) -> usize {
         self.letters.len()
     }
 

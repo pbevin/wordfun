@@ -27,5 +27,5 @@ pub struct Options {
 fn main() -> Result<()> {
     let opts = Options::from_args();
     env_logger::from_env(Env::default().default_filter_or("info")).init();
-    Ok(web::serve(opts)?)
+    web::serve(opts)
 }

@@ -30,7 +30,7 @@ impl FromStr for Sense {
     //  |  word type offset   sense_num
     // lemma
     fn from_str(line: &str) -> Result<Self, Self::Err> {
-        let mut tokens = line.split(" ");
+        let mut tokens = line.split(' ');
         let sense_key = tokens.next().unwrap();
         let offset = tokens
             .next()

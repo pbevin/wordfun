@@ -1,10 +1,12 @@
+use std::cmp::Ordering;
+
 #[derive(Debug, PartialEq, Default, Clone)]
 pub struct SortedAscii(Vec<u8>);
 
 impl SortedAscii {
     pub fn from_bytes(bytes: &[u8]) -> Self {
         let mut vec = bytes.to_vec();
-        vec.sort();
+        vec.sort_unstable();
         Self(vec)
     }
 
@@ -15,6 +17,10 @@ impl SortedAscii {
 
     pub fn len(&self) -> usize {
         self.0.len()
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
     }
 
     pub fn is_subset(&self, other: &SortedAscii) -> bool {
@@ -32,14 +38,18 @@ impl SortedAscii {
             let a = self.0[i];
             let b = other.0[j];
 
-            if a == b {
-                // Match - skip both
-                i += 1;
-                j += 1;
-            } else if a > b {
-                j += 1;
-            } else {
-                return false;
+            match a.cmp(&b) {
+                Ordering::Equal => {
+                    // Match - skip both
+                    i += 1;
+                    j += 1;
+                }
+                Ordering::Greater => {
+                    j += 1;
+                }
+                Ordering::Less => {
+                    return false;
+                }
             }
         }
     }

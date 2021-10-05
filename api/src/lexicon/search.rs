@@ -38,7 +38,7 @@ impl Anagram {
 
 impl Matches for Anagram {
     fn matches(&self, entry: &Entry) -> bool {
-        if self.len() != entry.len() {
+        if self.len() != entry.word_length() {
             return false;
         }
 
@@ -105,14 +105,14 @@ impl Matches for FindWord {
 impl From<FindWord> for SearchKey {
     fn from(find_word: FindWord) -> SearchKey {
         let lengths = std::iter::once(0)
-            .chain(find_word.breaks.positions().iter().cloned())
+            .chain(find_word.breaks.positions())
             .chain(std::iter::once(find_word.pat.len()))
             .tuple_windows::<(_, _)>()
             .map(|(a, b)| format!("{}", b - a))
             .collect::<Vec<_>>();
 
         SearchKey {
-            search_string: find_word.display.clone(),
+            search_string: find_word.display,
             len: lengths.join(","),
         }
     }

@@ -97,7 +97,7 @@ mod test {
         max_count: usize,
         wiggle: usize,
     ) -> String {
-        let popularity = Popularity::new();
+        let popularity = Popularity::default();
         let preview = Preview::new(max_count, wiggle, &popularity).build(search, results);
         // rats (4): 5 matches (arts, rats, star, tars, tsar)
         let search = format!("{} ({})", preview.query, preview.lengths);
@@ -111,7 +111,7 @@ mod test {
                 if pw.ranked {
                     format!("{}*", pw.text)
                 } else {
-                    format!("{}", pw.text)
+                    pw.text.to_string()
                 }
             })
             .collect::<Vec<_>>();
@@ -126,21 +126,21 @@ mod test {
     #[test]
     pub fn test_format_preview() {
         let lex = Lexicon::new(vec!["abc", "def", "ghij"].into_iter());
-        let mut results = lex.find_word("...");
+        let results = lex.find_word("...");
 
         assert_eq!(
             "... (3): 2 matches (abc, def)",
-            format_preview(&results.key, &mut results.words, 10, 0)
+            format_preview(&results.key, &results.words, 10, 0)
         )
     }
 
     #[test]
     pub fn format_preview_two_words() {
         let lex = Lexicon::new(vec!["oneword", "two words", "three whole words"].into_iter());
-        let mut results = lex.find_word(".../W.R..");
+        let results = lex.find_word(".../W.R..");
         assert_eq!(
             ".../w.r.. (3,5): 1 match (two words)",
-            format_preview(&results.key, &mut results.words, 10, 0)
+            format_preview(&results.key, &results.words, 10, 0)
         )
     }
 
@@ -148,10 +148,10 @@ mod test {
     pub fn format_preview_max_len_results() {
         let lex = Lexicon::new(vec!["aaa", "aab", "aac"].into_iter());
 
-        let mut results = lex.find_word("...");
+        let results = lex.find_word("...");
         assert_eq!(
             "... (3): 3 matches (aaa, aab, aac)",
-            format_preview(&results.key, &mut results.words, 3, 0)
+            format_preview(&results.key, &results.words, 3, 0)
         )
     }
 
@@ -162,8 +162,8 @@ mod test {
             let words = vec!["aaa", "aab", "aac", "aad", "aae", "aaf", "aag", "aah"];
             let lex = Lexicon::new(words.into_iter());
 
-            let mut results = lex.find_word(&search);
-            format_preview(&results.key, &mut results.words, max, wiggle)
+            let results = lex.find_word(search);
+            format_preview(&results.key, &results.words, max, wiggle)
         }
 
         #[test]

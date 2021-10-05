@@ -30,8 +30,13 @@ impl<'a> Results<'a> {
     pub fn search_string(&self) -> &str {
         self.key.search_string()
     }
+}
 
-    pub fn into_iter(self) -> impl Iterator<Item = &'a str> {
+impl<'a> IntoIterator for Results<'a> {
+    type Item = &'a str;
+    type IntoIter = std::vec::IntoIter<&'a str>;
+
+    fn into_iter(self) -> Self::IntoIter {
         self.words.into_iter()
     }
 }

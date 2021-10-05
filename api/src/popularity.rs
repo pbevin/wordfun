@@ -15,7 +15,7 @@ pub enum Ranked<T> {
 impl<T> Ranked<T> {
     pub fn rank(&self) -> Option<u32> {
         match self {
-            Self::Ranked(_, rank) => Some(rank.clone()),
+            Self::Ranked(_, rank) => Some(*rank),
             Self::Unranked(_) => None,
         }
     }
@@ -71,20 +71,16 @@ impl<T: fmt::Display> fmt::Display for Ranked<T> {
     }
 }
 
-/// Rank words by their popularity. The most popular English words are
-/// `you I to the a and that it of me`. After the most popular
+/// Rank words by their popularity.
+///
+/// The most popular English words are `you I to the a and that it of me`. After the most popular
 /// 1000, the next five are `acting accept blow strange saved`.
+#[derive(Default)]
 pub struct Popularity {
     words: HashMap<AsciiString, u32>,
 }
 
 impl Popularity {
-    pub fn new() -> Self {
-        Self {
-            words: HashMap::new(),
-        }
-    }
-
     pub fn is_ranked<'a>(&'a self, word: &'a str) -> bool {
         self.words.contains_key(&parse_word(word).0)
     }

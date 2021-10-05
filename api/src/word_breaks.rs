@@ -7,10 +7,6 @@ pub struct WordBreaks(FixedBitSet);
 impl WordBreaks {
     const SIZE: usize = 60;
 
-    pub fn empty() -> Self {
-        Self::default()
-    }
-
     pub fn for_word(word: &str) -> Self {
         let mut breaks = Self::default();
         let mut was_letter = false;
@@ -29,8 +25,8 @@ impl WordBreaks {
         breaks
     }
 
-    pub fn positions(&self) -> Vec<usize> {
-        self.0.ones().collect()
+    pub fn positions(&self) -> impl Iterator<Item = usize> + '_ {
+        self.0.ones()
     }
 
     pub fn from_positions(positions: &[usize]) -> Self {
@@ -49,7 +45,7 @@ impl WordBreaks {
     }
 
     pub fn to_vec(&self) -> Vec<usize> {
-        self.0.ones().collect()
+        self.positions().collect()
     }
 }
 
@@ -76,6 +72,7 @@ mod test {
 
     #[test]
     pub fn find_breaks_three_words() {
-        assert_eq!(WordBreaks::for_word("café au lait").positions(), vec![4, 6]);
+        let positions: Vec<usize> = WordBreaks::for_word("café au lait").positions().collect();
+        assert_eq!(positions, &[4, 6]);
     }
 }

@@ -27,16 +27,27 @@ impl Dictionary {
         if let Some(entry) = self.entries.get_mut(&lemma) {
             entry.push((word_type, defn.into()));
         } else {
-            let mut entry = DefinitionList::new();
-            entry.push((word_type, defn.into()));
-            self.entries.insert(lemma, entry);
+            self.entries.insert(lemma, vec![(word_type, defn.into())]);
         }
     }
 
+    /// Returns the number of entries in the dictionary
     pub fn len(&self) -> usize {
         self.entries.len()
     }
 
+    /// Returns `true` if the dictionary is empty
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+
+    /// Returns a definition of the given term, or `None` if no definition was found.
+    ///
+    /// If the term contains accented characters, they are converted to a rough ASCII
+    /// equivalent (see [`deunicode`]). If a definition is not found, the search
+    /// continues with variants suggested by Wordnet's stemmer.
+    ///
+    /// [`deunicode`]: deunicode::deunicode
     pub fn lookup<'a>(&'a self, term: &str) -> Option<&'a str> {
         let search_term = deunicode(term).to_lowercase().replace(" ", "_");
         self.entries
@@ -54,7 +65,7 @@ impl Dictionary {
                     .and_then(|defs| defs.for_type(stemmed.word_type))
             })
             .map(AsRef::as_ref)
-            .nth(0)
+            .next()
     }
 }
 
