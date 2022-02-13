@@ -20,7 +20,7 @@ RUN cargo build --release
 #
 # BUILD WEB ASSETS
 #
-FROM node as jsbuild
+FROM node:16 as jsbuild
 RUN npm i -g parcel
 WORKDIR /wordfun
 COPY /package.json .
