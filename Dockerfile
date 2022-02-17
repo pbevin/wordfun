@@ -39,6 +39,7 @@ FROM alpine
 
 WORKDIR /wordfun
 COPY /api/data data
+RUN LANG=c sort data/lexicon.txt data/extra-words -o data/lexicon.txt
 COPY --from=jsbuild  /wordfun/build build
 COPY --from=build /wordfun/target/release/wordfun /usr/bin/wordfun
 
