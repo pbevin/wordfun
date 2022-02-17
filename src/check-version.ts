@@ -1,5 +1,3 @@
-import * as Sentry from '@sentry/browser';
-
 type VersionInfo = {
   serverVersion: string | null;
   serverResponse: string | null;
@@ -42,34 +40,29 @@ export default async function checkVersion(): Promise<VersionInfo> {
   // don't store the result in cache".  We need to be sure that we're getting
   // the live result. If the version number came from a cache, this test would
   // be useless.
-  try {
-    const resp = await fetch(`/version.txt?ui=${UI_VERSION}`, {
-      cache: 'no-store',
-    });
-    const text = await resp.text();
+  const resp = await fetch(`/version.txt?ui=${UI_VERSION}`, {
+    cache: 'no-store',
+  });
+  const text = await resp.text();
 
-    let response: VersionInfo = {
-      serverVersion: null,
-      serverResponse: text,
-      uiVersion: UI_VERSION,
-      mismatched: false,
-    };
-    if (!text.match(VERSION_REGEXP)) {
-      // Case 2: got something other than a version number.
-      response.mismatched = false;
-    } else if (text === UI_VERSION) {
-      // Case 3: the server is running the same version as we are!
-      response.serverVersion = text;
-      response.mismatched = false;
-    } else {
-      // Case 4: the server has returned a reasonable looking version
-      // number, but it's not what we have.
-      response.serverVersion = text;
-      response.mismatched = true;
-    }
-    return response;
-  } catch (e) {
-    Sentry.captureException(e);
-    throw e;
+  let response: VersionInfo = {
+    serverVersion: null,
+    serverResponse: text,
+    uiVersion: UI_VERSION,
+    mismatched: false,
+  };
+  if (!text.match(VERSION_REGEXP)) {
+    // Case 2: got something other than a version number.
+    response.mismatched = false;
+  } else if (text === UI_VERSION) {
+    // Case 3: the server is running the same version as we are!
+    response.serverVersion = text;
+    response.mismatched = false;
+  } else {
+    // Case 4: the server has returned a reasonable looking version
+    // number, but it's not what we have.
+    response.serverVersion = text;
+    response.mismatched = true;
   }
+  return response;
 }

@@ -1,7 +1,6 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 import Modal from 'react-modal';
-import * as Sentry from '@sentry/react';
 
 // workaround for "regeneratorRuntime not defined":
 import 'regenerator-runtime/runtime';
@@ -10,10 +9,9 @@ import Wordfun from './wordfun';
 import checkVersion from './check-version';
 
 import 'whatwg-fetch';
-import './sentry';
 import './app.css';
 
-const App = Sentry.withErrorBoundary(Wordfun, {fallback: 'an error occurred'});
+const App = Wordfun;
 
 const elt = document.getElementById('root');
 checkServerVersion();
