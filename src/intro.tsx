@@ -1,5 +1,4 @@
 import React from "react";
-import infoIcon from "./icons/info.svg";
 
 export default function Intro() {
   return (
