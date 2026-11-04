@@ -3,6 +3,7 @@ use std::str::FromStr;
 use super::WordType;
 
 #[derive(Debug)]
+#[allow(dead_code)] // fields are only shown via Debug
 pub struct ParseError {
     line: String,
     message: String,

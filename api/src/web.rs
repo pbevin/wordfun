@@ -10,7 +10,6 @@ use actix_web::http::StatusCode;
 use actix_web::{middleware, web, App, HttpResponse, HttpServer};
 use anyhow::{ensure, Context, Result};
 use itertools::Itertools;
-use listenfd::ListenFd;
 use serde::{Deserialize, Serialize};
 use wordfun::{plural, Dictionary, Popularity, Results};
 
@@ -165,7 +164,7 @@ async fn version() -> HttpResponse {
 }
 
 /// Start up a web server
-#[actix_rt::main]
+#[actix_web::main]
 pub async fn serve(options: Options) -> Result<()> {
     if let Some(dir) = &options.assets_dir {
         ensure!(
@@ -178,7 +177,7 @@ pub async fn serve(options: Options) -> Result<()> {
     let reference = Reference::new(&options).context("Could not load reference data")?;
     let mut server = HttpServer::new(move || {
         let mut app = App::new()
-            .data(reference.clone())
+            .app_data(web::Data::new(reference.clone()))
             .wrap(middleware::Logger::default())
             .wrap(middleware::Compress::default())
             .route("/preview/an", web::get().to(preview_an))
@@ -197,14 +196,7 @@ pub async fn serve(options: Options) -> Result<()> {
         app
     });
 
-    // The ListenFd thing is for auto-reloading the development server:
-    //   https://actix.rs/docs/autoreload/
-    let mut listenfd = ListenFd::from_env();
-    server = if let Some(l) = listenfd.take_tcp_listener(0).unwrap() {
-        server.listen(l)?
-    } else {
-        server.bind((options.bind_addr, options.server_port))?
-    };
+    server = server.bind((options.bind_addr, options.server_port))?;
 
     Ok(server.run().await?)
 }

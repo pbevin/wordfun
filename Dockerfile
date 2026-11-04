@@ -1,46 +1,41 @@
 #
 # BUILD SERVER
 #
-FROM rust:1.51-alpine as build
+FROM rust:1-alpine AS build
 WORKDIR /wordfun
-RUN apk add musl-dev
+RUN apk add --no-cache musl-dev
 
 # Precompile our dependencies: this speeds up subsequent builds
 ENV USER=root
-RUN cargo init
-COPY api/Cargo.toml .
-COPY api/Cargo.lock .
-RUN cargo build --release
-RUN rm -fr src
+RUN cargo init --name wordfun
+COPY api/Cargo.toml api/Cargo.lock ./
+RUN cargo build --release --locked && rm -fr src
 
-# Build for real this time
+# Build for real this time (touch so cargo notices the new sources)
 COPY api/src src
-RUN cargo build --release
+RUN touch src/main.rs src/lib.rs && cargo build --release --locked
 
 #
 # BUILD WEB ASSETS
 #
-FROM node:16 as jsbuild
-RUN npm i -g parcel
+FROM node:22-alpine AS jsbuild
 WORKDIR /wordfun
-COPY /package.json .
-COPY /yarn.lock .
-RUN yarn
-COPY /tsconfig.json .
-COPY /src src
-COPY /public public
-RUN npx browserslist --update-db
-RUN npm run build
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+COPY tsconfig.json .
+COPY src src
+COPY public public
+RUN yarn build
 
 #
 # BUILD FINAL IMAGE
 #
-FROM alpine
+FROM alpine:3
 
 WORKDIR /wordfun
-COPY /api/data data
-RUN LANG=c sort data/lexicon.txt data/extra-words -o data/lexicon.txt
-COPY --from=jsbuild  /wordfun/build build
+COPY api/data data
+RUN LANG=C sort data/lexicon.txt data/extra-words -o data/lexicon.txt
+COPY --from=jsbuild /wordfun/build build
 COPY --from=build /wordfun/target/release/wordfun /usr/bin/wordfun
 
 ARG SOURCE_COMMIT

@@ -2,7 +2,7 @@
 name = "wordfun"
 version = "1.0.0"
 authors = ["Pete Bevin <pete@petebevin.com>"]
-edition = "2018"
+edition = "2021"
 license = "MIT"
 publish = false
 
@@ -12,14 +12,12 @@ path = "src/main.rs"
 bench = false
 
 [dependencies]
-actix-rt = "1.1.1"
-actix-web = "2.0.0"
-listenfd = "0.3.3"
+actix-web = "4"
 deunicode = "1.1.1"
 fixedbitset = "0.3.1"
-actix-files = "0.2.2"
+actix-files = "0.6"
 log = "0.4.11"
-env_logger = "0.7.1"
+env_logger = "0.11"
 itertools = "0.9.0"
 smallvec = "1.4.2"
 serde = { version = "1.0", features = ["derive"] }

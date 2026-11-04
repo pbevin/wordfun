@@ -5,7 +5,7 @@ mod word_type;
 use std::collections::HashMap;
 
 pub use import::from_wordnet;
-pub use stemming::{stem, StemmedWord};
+pub use stemming::stem;
 pub use word_type::WordType;
 
 /// The type of the object contained in a save file.

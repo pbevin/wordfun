@@ -1,27 +1,33 @@
-name: Rust
+name: Tests
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
+  rust:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Cache target directory
-      uses: actions/cache@v2
+    - uses: actions/checkout@v4
+    - uses: Swatinem/rust-cache@v2
       with:
-        path: api/target
-        key: ${{ runner.os }}-${{ hashFiles('api/Cargo.toml', 'api/Cargo.lock', 'api/src') }}
-
+        workspaces: api
     - name: Run tests
       working-directory: api
-      run: cargo test --verbose
+      run: cargo test --locked
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: yarn
+    - run: yarn install --frozen-lockfile
+    - run: yarn build

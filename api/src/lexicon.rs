@@ -36,7 +36,7 @@ impl Lexicon {
 
     /// Returns an iterator over all entries.
     /// The iterator element type is `&Entry`.
-    pub fn entries(&self) -> Entries {
+    pub fn entries(&self) -> Entries<'_> {
         Entries {
             it: self.entries.iter(),
         }

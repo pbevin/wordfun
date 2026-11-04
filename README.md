@@ -15,29 +15,52 @@ Then open a browser at http://localhost:3000/
 
 ## Building for Development
 
-The app comes in two parts: a server, written in Rust, which handles searching, and a client, written in JavaScript and
-React.
+The app comes in two parts: a server, written in Rust, which handles searching, and a client, written in TypeScript and
+React (Create React App).
 
-For the server, you will need the Rust environment, and for the client, you will need Node.js and npm. I don't have any
-advice on minimum versions; at the time of writing, I am using Rust 1.46, Node.js 14.11.0, and npm 6.14.7, which are all
-the most current releases. In general, I like to keep tools up to date, so it's not a bad bet to just get the latest
-version of everything.
-
-- [Installing Rust](http://rustup.sh/)
-- [Installing Node.js and npm](https://nodejs.org/en/download/)
+You need a current stable Rust ([rustup](https://rustup.rs/)) and Node.js 22 or later with Yarn 1.
 
 I run the client and server in separate windows.
 
-- For the server, run `cargo run`. This will take a couple of minutes the first time, because there are a lot of
-  dependencies to compile. Subsequent compiles will take just a few seconds.
+- For the server, `cd api && cargo run`. It listens on 127.0.0.1:4000 and must be run from the `api` directory so it
+  can find `data/`. The first build takes a few minutes; later ones take seconds.
 
-- For the client, run `npm install` the first time, and then `npm start` to run the server.
+- For the client, run `yarn install` the first time, and then `yarn start`. This opens a dev server on
+  [localhost:3000](http://localhost:3000) with hot reloading, and proxies API calls to the Rust server on port 4000.
 
-The server listens on port 3000, but for the best development experience, open a browser at
-[localhost:1234][http://localhost:1234]. That way, you get hot module replacement and don't have to keep reloading the
-page.
+Tests: `cd api && cargo test`. GitHub Actions runs the Rust tests and the client build on every push to `main`.
 
-If you have problems with any of the above, please open a GitHub issue.
+## Deploying
+
+The live site runs on [Fly.io](https://fly.io/) as a single Docker container, configured in `fly.toml`.
+
+One-time setup:
+
+```bash
+brew install flyctl          # or: curl -L https://fly.io/install.sh | sh
+fly auth login
+fly launch --no-deploy --copy-config   # creates the app; pick a new name if "wordfun" is taken
+```
+
+To deploy the current checkout:
+
+```bash
+fly deploy --build-arg SOURCE_COMMIT=$(git rev-parse HEAD)
+```
+
+`SOURCE_COMMIT` is reported at `/version.txt`, so you can check which commit is live. To add words, append them to
+`api/data/extra-words` (the Docker build merges and sorts them into the lexicon) and deploy.
+
+The domain `wordfun.ca` is registered and its DNS hosted at Hover. To point it at Fly:
+
+```bash
+fly certs add www.wordfun.ca
+fly certs add wordfun.ca
+fly ips list                 # gives the IPv4 and IPv6 addresses
+```
+
+Then in Hover set `www` to a CNAME of `<app-name>.fly.dev`, and the apex `wordfun.ca` to A and AAAA records with the
+addresses from `fly ips list`. `fly certs show wordfun.ca` confirms when the certificates are issued.
 
 ## Contributing
 
