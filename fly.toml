@@ -1,31 +1,30 @@
-# Fly.io configuration for wordfun.ca.
-# Deploy with:  fly deploy --build-arg SOURCE_COMMIT=$(git rev-parse HEAD)
-# See README.md, "Deploying".
+# fly.toml app configuration file generated for wordfun on 2026-11-04T13:51:22-05:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
-app = "wordfun"
-primary_region = "yyz"
+app = 'wordfun'
+primary_region = 'yyz'
 
 [build]
-  dockerfile = "Dockerfile"
+  dockerfile = 'Dockerfile'
 
 [http_service]
   internal_port = 3000
   force_https = true
-  auto_stop_machines = "stop"
+  auto_stop_machines = 'stop'
   auto_start_machines = true
-  # Keep one machine always running. Startup only takes ~2s, so set this
-  # to 0 if you'd rather let Fly stop the machine when the site is idle.
   min_machines_running = 1
 
   [[http_service.checks]]
-    grace_period = "20s"
-    interval = "30s"
-    timeout = "5s"
-    method = "GET"
-    path = "/version.txt"
+    interval = '30s'
+    timeout = '5s'
+    grace_period = '20s'
+    method = 'GET'
+    path = '/version.txt'
 
 [[vm]]
-  # The server uses about 190 MB once its data is loaded.
-  memory = "512mb"
-  cpu_kind = "shared"
+  memory = '512mb'
+  cpu_kind = 'shared'
   cpus = 1
+  memory_mb = 512
