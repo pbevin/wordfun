@@ -48,6 +48,10 @@ To deploy the current checkout:
 fly deploy --build-arg SOURCE_COMMIT=$(git rev-parse HEAD)
 ```
 
+Pushes to `main` deploy automatically: `.github/workflows/deploy.yml` runs `fly deploy` once the Tests workflow
+passes, then checks that `/version.txt` shows the new commit. It needs a repository secret `FLY_API_TOKEN` (create one
+with `fly tokens create deploy -a wordfun`); without it the job skips. You can also start a deploy from the Actions tab.
+
 `SOURCE_COMMIT` is reported at `/version.txt`, so you can check which commit is live. To add words, append them to
 `api/data/extra-words` (the Docker build merges and sorts them into the lexicon) and deploy.
 
