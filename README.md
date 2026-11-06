@@ -42,11 +42,14 @@ fly auth login
 fly launch --no-deploy --copy-config   # creates the app; pick a new name if "wordfun" is taken
 ```
 
-To deploy the current checkout:
+To deploy the current checkout (needs [just](https://github.com/casey/just), e.g. `brew install just`):
 
 ```bash
-fly deploy --build-arg SOURCE_COMMIT=$(git rev-parse HEAD)
+just deploy
 ```
+
+This refuses to run with uncommitted changes, runs
+`fly deploy --build-arg SOURCE_COMMIT=$(git rev-parse HEAD)`, then checks that `/version.txt` shows the new commit.
 
 `SOURCE_COMMIT` is reported at `/version.txt`, so you can check which commit is live. To add words, append them to
 `api/data/extra-words` (the Docker build merges and sorts them into the lexicon) and deploy.
